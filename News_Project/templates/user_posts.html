@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/vendors/mdi/css/materialdesignicons.min.css' %}"
+    />
+    <link rel="stylesheet" href="{% static 'assets/vendors/aos/dist/aos.css/aos.css" />
+
+    <!-- End plugin css for this page -->
+    <link rel="shortcut icon" href="{% static 'assets/images/icon.png' %}" />
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href= "{% static 'assets/css/style.css' %}">
+
+</head>
+<body>
+
+
+
+                <div class="col-lg-9 stretch-card grid-margin">
+                  <div class="card">
+                    <div class="card-body">
+                        <h1 class ="mb-3" >Posts By {{view.kwargs.username}} ({{ page_obj.paginator.count }}) </h1>
+                       {% for post in posts %}
+                      <div class="row">
+                        <div class="col-sm-4 grid-margin">
+                          <div class="position-relative">
+
+                            <div class="rotate-img">
+                              <img
+                                src="{{post.img.url}}"
+                                alt="thumb"
+                                class="img-fluid"
+                              />
+
+                              <div style="margin-top:20px;" class="alert alert-primary" role="alert">
+                                 Posted By <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{post.author}}</a> </div>
+                              </div>
+                                <div class="user-avatar">
+				                     <img style="width:100px; height:100px;"  class="rounded-circle article-img" src="{{post.author.profile.image.url}}" alt="">
+				                </div>
+
+                            <div style="margin-bottom:50px; margin-right:40px;" class="badge-positioned">
+                              <span class="badge badge-danger font-weight-bold"
+                                >Flash news</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-8  grid-margin">
+                         <a class="mr-2" href="{% url 'post-detail' post.id %}">
+                           <h2 class="mb-2 font-weight-600">
+                            {{ post.title }}
+                          </h2>
+                         </a>
+                          <div class="fs-13 mb-2">
+                            <span class="mr-2"></span>{{post.date_posted|date:"F d,Y" }}
+                          </div>
+                          <p class="mb-0">
+                           {{post.content}}
+                          </p>
+                        </div>
+                      </div>
+                  {% endfor %}
+                        <a style="mt-5"  href="{% url 'index' %}"><button type="button" class="btn btn-primary">Back</button></a>
+                      {% if is_paginated %}
+
+                        {% if page_obj.has_previous %}
+                           <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                          {% for num in page_obj.paginator.page_range %}
+                              {% if page_obj.number == num %}
+                                 <a class="btn btn-info mb-4" href="?page={{num}}">{{ num }}</a>
+                              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'  %}
+                                 <a class="btn btn-outline-info mb-4" href="?page={{num}}">{{ num }}</a>
+                              {% endif %}
+                          {% endfor %}
+
+                      {% if page_obj.has_next %}
+                           <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Next</a>
+                          <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                        {% endif %}
+
+
+                      {% endif %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+</body>
+</html>

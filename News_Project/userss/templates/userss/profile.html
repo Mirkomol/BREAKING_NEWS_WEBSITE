@@ -1,0 +1,71 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     <link rel="stylesheet" href="{% static 'style.css' %}">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+
+<div class="container">
+	<div class="row gutters"><div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+	<div class="card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="user-avatar">
+					<img src="{{ user.profile.image.url }}" alt="kun uz">
+				</div>
+				<h5 class="user-name">{{user.username}}</h5>
+				<h6 class="user-email">{{user.email}}</h6>
+			</div>
+			<div class="about">
+				<h5>About</h5>
+				<p>I'm {{user.username}}. I am experienced Blogger,I enjoy creating blogs, delightful and human experiences.</p>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+				<div class="card h-100">
+					<div class="card-body">
+						<div class="row gutters">
+							<form method = "POST" enctype="multipart/form-data">
+									{% csrf_token %}
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<h6 class="mb-2 text-primary">Personal Details</h6>
+								</div>
+								<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+										{{u_form|crispy}}
+										{{p_form|crispy}}
+								</div>
+								</div>
+							</div
+							<div class="row gutters">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+									<div class="text-right">
+										<a href="{% url 'index' %}"><button type="button" id="submit" name="submit" class="btn btn-danger">Cancel </button></a>
+										<button type="submit"  class="btn btn-primary">Update</button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+			</div>
+		  </div>
+		</div>
+	</form>
+</div>
+
+</body>
+</html>
