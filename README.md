@@ -1,2 +1,3 @@
-# news_site_project
-This analog of website kun uz and other news website
+# Breaking News Website
+
+Find the latest breaking news and information on the top stories, weather, business, entertainment, politics, and more
